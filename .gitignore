@@ -1,0 +1,18 @@
+syntax: glob
+*.-
+*.pyc
+*.out
+*.log
+*.*~
+.~lock*
+*.dat
+*.xls
+.DS_Store
+.idea/**
+.env/**
+.vscode/**
+env/**
+log/**
+data/**
+tmp/**
+apache-log/**
