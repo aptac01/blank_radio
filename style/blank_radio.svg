@@ -2,23 +2,60 @@
     <rect width="700" height="150" fill="#1E1E1E"/>
     <rect x="0.5" y="0.5" width="699" height="149" rx="74.5" fill="#392525" stroke="black" stroke-linejoin="round"/>
 
-<!--    prev -->
-    <g onclick="prev_onclick();">
-        <circle cx="160" cy="75" r="60" transform="rotate(-180 160 75)" fill="#76009F"/>
+    <g id="prev_btn"
+       class="hover-color-change-group"
+       onclick="prev_onclick();"
+    >
+        <circle class="hover-color-change-element"
+                cx="160" cy="75" r="60" transform="rotate(-180 160 75)"
+                fill="#0038FF"
+        />
         <path d="M135.859 74.7662L185.481 40.3009L185.235 109.583L135.859 74.7662Z" fill="#1F0052"/>
         <rect x="136" y="108" width="5" height="66" transform="rotate(-180 136 108)" fill="#1F0052"/>
     </g>
 
-<!--    next -->
-    <g onclick="next_onclick();">
-        <circle cx="540" cy="75" r="60" fill="#76009F"/>
+    <g id="next_btn"
+       class="hover-color-change-group"
+       onclick="next_onclick();"
+    >
+        <circle class="hover-color-change-element"
+                cx="540" cy="75" r="60" fill="#0038FF"
+        />
         <path d="M564.141 75.2338L514.519 109.699L514.765 40.4175L564.141 75.2338Z" fill="#1F0052"/>
         <rect x="564" y="42" width="5" height="66" fill="#1F0052"/>
     </g>
 
-<!--    play -->
-    <g onclick="play_onclick();">
-        <circle cx="350" cy="75" r="60" fill="#76009F"/>
+    <g id="play_btn"
+       class="hover-color-change-group"
+       onclick="play_onclick();"
+    >
+        <circle class="hover-color-change-element"
+                cx="350" cy="75" r="60"
+                fill="#0038FF"
+        />
         <path d="M383.141 75.2338L333.519 109.699L333.765 40.4175L383.141 75.2338Z" fill="#1F0052"/>
+    </g>
+
+    <g id="pause_btn"
+       class="hover-color-change-group"
+       onclick="pause_onclick();"
+       style="display: none;"
+    >
+        <circle class="hover-color-change-element"
+                cx="350" cy="75" r="60"
+                fill="#0038FF"
+        />
+        <g id="pause_sign">
+            <path id="left" d="M331 42H340V108H331V42Z" fill="#1F0052"/>
+            <path id="right" d="M360 42H369V108H360V42Z" fill="#1F0052"/>
+        </g>
+    </g>
+
+    <g>
+        <circle id="play_indicator"
+                cx="296" cy="21" r="6"
+                fill="#FF8A00"
+                style="display: none;"
+        />
     </g>
 </svg>

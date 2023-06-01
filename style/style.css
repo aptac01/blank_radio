@@ -8,3 +8,25 @@ html, body {
     justify-content: center;
     height: 100%;
 }
+
+/* ---------------- */
+
+.hover-color-change-group:hover .hover-color-change-element {
+    fill: #76009F;
+    color: #76009F;
+}
+
+@keyframes twinkly {
+    from {
+        opacity: 1;
+        fill: #FF8A00;
+    }
+    to {
+        opacity: 0.25;
+        fill: #9F5600;
+    }
+}
+
+.twinkle {
+  animation: twinkly 0.65s alternate infinite;
+}
