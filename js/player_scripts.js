@@ -157,6 +157,7 @@ window.onload = (function (){
                         x, y;
 
                     if (e.changedTouches !== undefined) {
+                        // чтобы не было рандомных эксепшонов при яростном дрыгании слайдером по всей странице
                         touch_x = e.changedTouches[0].pageX;
                         touch_y = e.changedTouches[0].pageY;
                     }
