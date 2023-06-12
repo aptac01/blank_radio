@@ -1,6 +1,5 @@
-// todo все идентификаторы на всех уровнях должны быть under_score
-
-const defaultVolume = 0.7;
+//todo разрезать файл на отдельные файлы, сшивать - в питоне
+const default_volume = 0.7;
 
 function prev_onclick() {
 
@@ -37,13 +36,13 @@ function pause_or_stop(stop_or_pause) {
 
     $('#pause_btn').hide();
     $('#play_btn').show();
-    ourAudio.pause();
+    our_audio.pause();
 
     if (stop) {
         $('#play_indicator').removeClass('twinkle');
         $('#play_indicator').hide();
-        ourAudio.currentTime = 0;
-        set_volume(defaultVolume);
+        our_audio.currentTime = 0;
+        set_volume(default_volume);
     } else {
         $('#play_indicator').addClass('twinkle');
     }
@@ -64,47 +63,57 @@ function play_sound(url) {
     var isPlaying = $('#current_track').length > 0;
 
     if (isPlaying) {
-        ourAudio.play();
+        our_audio.play();
     } else {
-        ourAudio = document.createElement('audio');
-        ourAudio.id = 'current_track';
-        ourAudio.style.display = "none";
-        ourAudio.src = url;
-        ourAudio.autoplay = false;
-        ourAudio.onended = function() {
+        our_audio = document.createElement('audio');
+        our_audio.id = 'current_track';
+        our_audio.style.display = "none";
+        our_audio.src = url;
+        our_audio.autoplay = false;
+        our_audio.onended = function() {
             // Remove when played.
             this.remove();
+            $('#play_indicator').removeClass('twinkle');
+            $('#play_indicator').hide();
+            $('#pause_btn').hide();
+            $('#play_btn').show();
         };
-        set_volume(defaultVolume);
-        document.body.appendChild(ourAudio);
-        ourAudio.play();
+        set_volume(default_volume);
+        document.body.appendChild(our_audio);
+        our_audio.play();
     }
 }
 
+// todo сделать функцию с таким же параметром, но двигающую сам .volume-slider
 function set_volume(volume) {
     if ((volume < 0) || (volume > 1)) {
-        console.error('Звук регулируется в промежутке от 0 до 1');
+        console.error('Звук регулируется в промежутке от 0 до 1, полученное значение - ' + volume);
         return;
     }
-    ourAudio.volume = volume;
+    if (typeof our_audio !== 'undefined') {
+        our_audio.volume = volume;
+    }
 }
 
-function adjust_vol_slider(element, xCoord, yCoord) {
+function adjust_vol_slider(element, x_coord, y_coord) {
 
-    var parentOffset = element.offset(),
-        relX = xCoord - parentOffset.left,
-        relY = yCoord - parentOffset.top,
-        volume_slider = $('.volume-slider');
+    var parent_offset = element.offset(),
+        rel_x = x_coord - parent_offset.left,
+        rel_y = y_coord - parent_offset.top,
+        volume_slider = $('.volume-slider'),
+        vol_bar_length = volume_slider.data('cx-from') - volume_slider.data('cx-to');
 
-//    ограничиваем перемещение крайними значениями ползунка
-    if (relX <= volume_slider.data('cx-from')) {
+    // перемещаем сам ползунок, ограничиваем его перемещение крайними значениями полоски
+    if (rel_x <= volume_slider.data('cx-from')) {
         volume_slider.attr('cx', volume_slider.data('cx-from'));
-    } else if (relX >= volume_slider.data('cx-to')) {
+    } else if (rel_x >= volume_slider.data('cx-to')) {
         volume_slider.attr('cx', volume_slider.data('cx-to'));
     } else {
-        volume_slider.attr('cx', relX);
+        volume_slider.attr('cx', rel_x);
     }
 
+    // выставляем соответствующий уровень громкости (от позиции ползунка)
+    set_volume((volume_slider.attr('cx') - volume_slider.data('cx-from')) / volume_slider.data('cx-to'));
 }
 
 function move_volume_slider(e) {
@@ -117,28 +126,51 @@ function move_volume_to_coords(x, y) {
     adjust_vol_slider($('#volume'), x, y);
 }
 
+function set_track_position(percentage) {
+// todo сделать
+
+//  общая длина трека в секундах
+    our_audio.duration
+
+//    присвоение этой переменной - меняет текущую позицию в треке
+    our_audio.currentTime
+}
+
 window.onload = (function (){
     $('#player').load('player_svg', function() {
 
-        // работает заебись, но не тянется за курсором
+        // обработка одиночных кликов на бар
         $('#volume').on('mousedown touchstart', move_volume_slider);
 
-        // работает заебись, но после mousedown если выйти на пределы элемента - останавливается
-        $(".volume-slider").on('touchstart mousedown', function(ev) {
-            ev.preventDefault();
-            $(this).on("touchmove mousemove",function(e){
-                var x = e.pageX || e.changedTouches[0].pageX;
-                var y = e.pageY || e.changedTouches[0].pageY;
-                var p1 = { x: x, y: y };
-                var p0 = $(this).data("p0") || p1;
-//                console.log("dragging from x:" + p0.x + " y:" + p0.y + " to x:" + p1.x + " y:" + p1.y);
+        // todo вынести в отдельную функцию
+        // ловим клики по всей странице
+        $(document).on('touchstart mousedown', function(ev) {
 
-                move_volume_to_coords(p1.x, p1.y);
-            });
+            // но громкость меняем только если начальный клик был внутри бара,
+            // т.е. если "взяли кликом" за слайдер и потянули,
+            // и если при этом курсор вышел за границы бара не отпуская клик - продолжаем трекать положение
+            if ($('#volume').has(ev.target).length > 0) {
+                ev.preventDefault();
+                $(this).on("touchmove mousemove",function(e){
+                    var touch_x = 0,
+                        touch_y = 0,
+                        x, y;
+
+                    if (e.changedTouches !== undefined) {
+                        touch_x = e.changedTouches[0].pageX;
+                        touch_y = e.changedTouches[0].pageY;
+                    }
+
+                    x = e.pageX || touch_x;
+                    y = e.pageY || touch_y;
+
+                    move_volume_to_coords(x, y);
+                });
+            }
         }).on('touchend mouseup', function(ev) {
             ev.preventDefault();
             $(this).off("touchmove mousemove");
         });
     });
-    var ourAudio;
+    var our_audio;
 });

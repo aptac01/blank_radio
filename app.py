@@ -22,6 +22,9 @@ class Root(object):
 
     @cherrypy.expose
     def player_scripts(self):
+
+        cherrypy.response.headers['Content-Type'] = 'text/javascript'
+
         with open('js/player_scripts.js', encoding="utf-8") as f:
             player_script_file = f.read()
 
@@ -40,7 +43,9 @@ if __name__ == '__main__':
     conf = {
         '/': {
             'tools.sessions.on': True,
-            'tools.staticdir.root': os.path.abspath(os.getcwd())
+            'tools.sessions.httponly': True,
+            'tools.sessions.secure': False,
+            'tools.staticdir.root': os.path.abspath(os.getcwd()),
         },
         '/static': {
             'tools.staticdir.on': True,
