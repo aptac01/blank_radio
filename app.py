@@ -34,7 +34,7 @@ class Root(object):
             if os.path.isfile(os.path.join(cur_dir_name, item)):
 
                 with open('js/' + item, encoding="utf-8") as f:
-                    player_script_file += f.read()
+                    player_script_file += f.read() + '\n\n'
 
         return player_script_file
 
