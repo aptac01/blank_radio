@@ -15,7 +15,8 @@ class Root(object):
     @cherrypy.expose
     def player_svg(self):
 
-        with open('style/blank_radio.svg', encoding="utf-8") as f:
+        with open('style/blank_radio_new.svg', encoding="utf-8") as f:
+        # with open('style/blank_radio.svg', encoding="utf-8") as f:
             player_svg_file = f.read()
 
         return player_svg_file
@@ -25,8 +26,15 @@ class Root(object):
 
         cherrypy.response.headers['Content-Type'] = 'text/javascript'
 
-        with open('js/player_scripts.js', encoding="utf-8") as f:
-            player_script_file = f.read()
+        player_script_file = ''
+
+        cur_dir_name = './js'
+        for item in os.listdir(cur_dir_name):
+
+            if os.path.isfile(os.path.join(cur_dir_name, item)):
+
+                with open('js/' + item, encoding="utf-8") as f:
+                    player_script_file += f.read()
 
         return player_script_file
 
