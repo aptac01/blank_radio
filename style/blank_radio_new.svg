@@ -8,18 +8,15 @@
                 <path id="track_seeker_bar" d="M80 1.5H373C375.485 1.5 377.5 3.51472 377.5 6V22C377.5 24.4853 375.485 26.5 373 26.5H80C73.0964 26.5 67.5 20.9036 67.5 14C67.5 7.09644 73.0964 1.5 80 1.5Z" fill="#392525" stroke="#1E1313" stroke-width="3" stroke-linejoin="round"/>
                 <path id="track_seeker_path" d="M79 14H366" stroke="#2B0139" stroke-width="3" stroke-linecap="round"/>
                 <g id="track_seeker_slider" class="hover-color-change-group">
-                    <circle id="Ellipse 1_13" class="hover-color-change-element" cx="299" cy="14" r="8" fill="#0038FF" stroke="#1F0052" stroke-width="2"/>
-                    <g id="dice_1_sign_3">
-                        <rect id="dice_body_8" x="294.5" y="9.5" width="9" height="9" rx="4.5" fill="#1F0052"/>
-                        <circle id="Ellipse 4_7" class="hover-color-change-element" cx="299" cy="13.7" r="1.2" fill="#0038FF"/>
-                    </g>
+                    <circle id="Ellipse 1_13" class="hover-color-change-element track_seeker_slider" cx="80" cy="14" r="8" data-cx-from="80" data-cx-to="365" fill="#0038FF" stroke="#1F0052" stroke-width="2"/>
+                    <path id="Ellipse 10_2" class="track_seeker_slider" d="M85 14C85 16.7614 82.7614 19 80 19C77.2386 19 75 16.7614 75 14C75 11.2386 77.2386 9 80 9C82.7614 9 85 11.2386 85 14ZM78.5 14C78.5 14.8284 79.1716 15.5 80 15.5C80.8284 15.5 81.5 14.8284 81.5 14C81.5 13.1716 80.8284 12.5 80 12.5C79.1716 12.5 78.5 13.1716 78.5 14Z" fill="#1F0052"/>
                 </g>
             </g>
 
             <g id="track_timer">
                 <path id="track_timer_bar" d="M386 1.5H510C516.904 1.5 522.5 7.09644 522.5 14C522.5 20.9036 516.904 26.5 510 26.5H386C383.515 26.5 381.5 24.4853 381.5 22V6C381.5 3.51472 383.515 1.5 386 1.5Z" fill="#392525" stroke="#1E1313" stroke-width="3" stroke-linejoin="round"/>
                 <text id="track_timer_digits" fill="#0038FF" xml:space="preserve" style="white-space: pre" font-family="Inter" font-size="18" font-weight="bold" letter-spacing="0em">
-<!--                    todo разобраться почему на мобилках шрифт выглядит по другому-->
+<!--                    todo разобраться как заюзать шрифт-->
                     <tspan x="391" y="20.5455">99:99 / 99:99</tspan>
                 </text>
             </g>
@@ -147,12 +144,8 @@
             <path id="volume_bar" d="M80 181.5H512C518.904 181.5 524.5 187.096 524.5 194C524.5 200.904 518.904 206.5 512 206.5H80C73.0964 206.5 67.5 200.904 67.5 194C67.5 187.096 73.0964 181.5 80 181.5Z" fill="#392525" stroke="#1E1313" stroke-width="3" stroke-linejoin="round"/>
             <path id="volume_path" d="M79 194L488 194" stroke="#2B0139" stroke-width="3" stroke-linecap="round"/>
             <g id="volume_slider" class="hover-color-change-group">
-<!--            координата x dice_body = cx(Ellipse 1) - 4.5    -->
-                <circle id="Ellipse 1" class="hover-color-change-element" cx="363" cy="194" r="8" fill="#0038FF" stroke="#1F0052" stroke-width="2"/>
-                <g id="dice_1_sign">
-                    <rect id="dice_body" x="358.5" y="189.5" width="9" height="9" rx="4.5" fill="#1F0052"/>
-                    <circle id="Ellipse 4" class="hover-color-change-element" cx="363" cy="193.7" r="1.2" fill="#0038FF"/>
-                </g>
+                <circle id="Ellipse 1" class="hover-color-change-element volume_slider" cx="80" cy="194" r="8" data-cx-from="80" data-cx-to="488" fill="#0038FF" stroke="#1F0052" stroke-width="2"/>
+                <path id="Ellipse 10" class="volume_slider" d="M85 194C85 196.761 82.7614 199 80 199C77.2386 199 75 196.761 75 194C75 191.239 77.2386 189 80 189C82.7614 189 85 191.239 85 194ZM78.5 194C78.5 194.828 79.1716 195.5 80 195.5C80.8284 195.5 81.5 194.828 81.5 194C81.5 193.172 80.8284 192.5 80 192.5C79.1716 192.5 78.5 193.172 78.5 194Z" fill="#1F0052"/>
             </g>
             <g id="volume_icon">
                 <path id="Icon" d="M511.536 190.464C513.488 192.417 513.488 195.583 511.536 197.536M514.364 187.636C517.879 191.151 517.879 196.849 514.364 200.364M501.586 197H500C499.448 197 499 196.552 499 196V192C499 191.448 499.448 191 500 191H501.586L506.293 186.293C506.923 185.663 508 186.109 508 187V201C508 201.891 506.923 202.337 506.293 201.707L501.586 197Z" stroke="#0038FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

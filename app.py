@@ -23,20 +23,8 @@ class Root(object):
 
     @cherrypy.expose
     def player_scripts(self):
-
-        cherrypy.response.headers['Content-Type'] = 'text/javascript'
-
-        player_script_file = ''
-
-        cur_dir_name = './js'
-        for item in os.listdir(cur_dir_name):
-
-            if os.path.isfile(os.path.join(cur_dir_name, item)):
-
-                with open('js/' + item, encoding="utf-8") as f:
-                    player_script_file += f.read() + '\n\n'
-
-        return player_script_file
+        from python_app.player_scripts import main
+        return main(self)
 
     @cherrypy.expose
     def audio(self):

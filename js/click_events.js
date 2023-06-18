@@ -44,8 +44,15 @@ function pause_or_stop(stop_or_pause) {
     if (stop) {
         $('#play_indicator').removeClass('twinkle');
         $('#play_indicator').hide();
-        our_audio.currentTime = 0;
-        set_volume(default_volume);
+
+        // без удаления потрохов
+//        our_audio.currentTime = 0;
+//        set_volume(default_volume);
+
+        // с удалением потрохов
+        delete our_audio;
+        $('#current_track').remove();
+
     } else {
         $('#play_indicator').addClass('twinkle');
     }

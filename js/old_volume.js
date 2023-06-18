@@ -1,5 +1,5 @@
 // todo сделать функцию с таким же параметром, но двигающую сам .volume-slider
-function set_volume(volume) {
+function _set_volume(volume) {
     if ((volume < 0) || (volume > 1)) {
         console.error('Звук регулируется в промежутке от 0 до 1, полученное значение - ' + volume);
         return;
@@ -9,7 +9,7 @@ function set_volume(volume) {
     }
 }
 
-function adjust_vol_slider(element, x_coord, y_coord) {
+function _adjust_vol_slider(element, x_coord, y_coord) {
 
     var parent_offset = element.offset(),
         rel_x = x_coord - parent_offset.left,
@@ -27,20 +27,20 @@ function adjust_vol_slider(element, x_coord, y_coord) {
     }
 
     // выставляем соответствующий уровень громкости (от позиции ползунка)
-    set_volume((volume_slider.attr('cx') - volume_slider.data('cx-from')) / volume_slider.data('cx-to'));
+    _set_volume((volume_slider.attr('cx') - volume_slider.data('cx-from')) / volume_slider.data('cx-to'));
 }
 
-function move_volume_slider(e) {
+function _move_volume_slider(e) {
 
-    adjust_vol_slider($(this), e.pageX, e.pageY);
+    _adjust_vol_slider($(this), e.pageX, e.pageY);
 }
 
-function move_volume_to_coords(x, y) {
+function _move_volume_to_coords(x, y) {
 
-    adjust_vol_slider($('#volume'), x, y);
+    _adjust_vol_slider($('#volume'), x, y);
 }
 
-function set_track_position(percentage) {
+function _set_track_position(percentage) {
 // todo сделать
 
 //  общая длина трека в секундах
@@ -50,10 +50,10 @@ function set_track_position(percentage) {
     our_audio.currentTime
 }
 
-function init_volume_events() {
+function _init_volume_events() {
 
     // обработка одиночных кликов на бар
-    $('#volume').on('mousedown touchstart', move_volume_slider);
+    $('#volume').on('mousedown touchstart', _move_volume_slider);
 
     // ловим клики по всей странице
     $(document).on('touchstart mousedown', function(ev) {
@@ -77,7 +77,7 @@ function init_volume_events() {
                 x = e.pageX || touch_x;
                 y = e.pageY || touch_y;
 
-                move_volume_to_coords(x, y);
+                _move_volume_to_coords(x, y);
             });
         }
     }).on('touchend mouseup', function(ev) {
