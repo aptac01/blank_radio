@@ -1,4 +1,4 @@
-const default_volume = 0.7;
+var default_volume = 0.7;
 
 function prev_onclick() {
 

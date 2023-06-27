@@ -6,6 +6,9 @@ function set_volume(volume) {
     }
     if (typeof our_audio !== 'undefined') {
         our_audio.volume = volume;
+        //console.log('volume is set ' + volume);
+    } else {
+        default_volume = volume
     }
 }
 
@@ -38,27 +41,42 @@ function adjust_vol_slider(element, x_coord, y_coord) {
 
     // выставляем соответствующий уровень громкости (от позиции ползунка)
     set_volume((new_circle_coord_x - cx_from) / (cx_to - cx_from));
+
+
 }
 
 function move_volume_slider(e) {
 
+    // если клик по иконке звука - не двигаем слайдер
+    if (($('#volume_icon_background').has(e.target).length > 0)
+        || (e.target == $('#volume_icon_background')[0] )
+    ) {
+        return;
+    }
     adjust_vol_slider($(this), e.pageX, e.pageY);
 }
 
-function volume_icon_onclick() {
-    console.log('volume muted ' + Math.random());
+function volume_icon_onclick(ev) {
+    //console.log('volume muted ' + Math.random());
     set_volume(0);
 }
 
 function init_volume_events() {
 
-    $('#volume_icon').on('mousedown touchend', volume_icon_onclick);
+    $('#volume_icon_background').on('mousedown touchend', volume_icon_onclick);
 
     // обработка одиночных кликов на бар
     $('#volume_thing').on('mousedown touchend', move_volume_slider);
 
     // ловим перетаскивания по всей странице
     $(document).on('touchstart mousedown', function(ev) {
+
+        // если клик по иконке звука - не двигаем слайдер
+        if (($('#volume_icon_background').has(ev.target).length > 0)
+            || (ev.target == $('#volume_icon_background')[0] )
+        ) {
+            return;
+        }
 
         // но громкость меняем только если начальный клик был внутри бара,
         // т.е. если "взяли кликом" за слайдер и потянули,
