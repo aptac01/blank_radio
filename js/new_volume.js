@@ -12,6 +12,14 @@ function set_volume(volume) {
     }
 }
 
+function get_volume() {
+    if (typeof our_audio !== 'undefined') {
+        return our_audio.volume;
+    } else {
+        return default_volume;
+    }
+}
+
 function adjust_vol_slider(element, x_coord, y_coord) {
 
 // todo абстрагировать и вынести в отдельный файл
@@ -54,11 +62,37 @@ function move_volume_slider(e) {
         return;
     }
     adjust_vol_slider($(this), e.pageX, e.pageY);
+
+    mute_btn_default_state(false);
+}
+
+function mute_btn_default_state(set_volume_fl=true) {
+    volume_muted = false;
+
+    if (set_volume_fl) {
+        set_volume(volume_before_mute);
+    }
+
+    $('#volume_icon_fill').show();
 }
 
 function volume_icon_onclick(ev) {
-    //console.log('volume muted ' + Math.random());
-    set_volume(0);
+    if (volume_muted) {
+        // включаем звук из последнего запомненного значения
+        mute_btn_default_state();
+
+    } else {
+        // отрубаем звук, запоминая его значение
+
+        volume_muted = true;
+
+        volume_before_mute = get_volume();
+
+        //console.log('volume muted ' + Math.random());
+        set_volume(0);
+
+        $('#volume_icon_fill').hide();
+    }
 }
 
 function init_volume_events() {

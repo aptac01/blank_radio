@@ -1,5 +1,8 @@
 var default_volume = 0.7;
 
+var volume_muted = false;
+var volume_before_mute = default_volume;
+
 function prev_onclick() {
 
     console.log('prev!');
@@ -66,6 +69,7 @@ function pause_onclick() {
 function stop_onclick() {
 
     pause_or_stop('stop');
+    mute_btn_default_state();
 }
 
 function play_sound(url) {
