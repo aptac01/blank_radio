@@ -10,6 +10,12 @@ function set_track_position(percentage) {
 
 function move_track_seeker_slider(e) {
 
+    // на мобилках нужные координаты определяются по другому
+    if (isNaN(e.pageX) || isNaN(e.pageY)) {
+        e.pageX = e.changedTouches[0].pageX;
+        e.pageY = e.changedTouches[0].pageY;
+    }
+
     adjust_track_slider($(this), e.pageX, e.pageY);
 }
 

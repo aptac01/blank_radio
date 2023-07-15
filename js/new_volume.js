@@ -30,7 +30,7 @@ function adjust_vol_slider(element, x_coord, y_coord) {
         weird_thing = (2 * parseInt(volume_slider.attr('r')) - parseInt(volume_slider.attr('stroke-width')) + 0.5),
         new_circle_coord_x, new_path_coord_x;
 
-    new_circle_coord_x = x_coord - parent_offset.left + volume_slider.data('cx-from') - weird_thing
+    new_circle_coord_x = x_coord - parent_offset.left + volume_slider.data('cx-from') - weird_thing;
 
     // ограничиваем перемещение ползунка крайними значениями полоски
     if (new_circle_coord_x <= cx_from) {
@@ -47,6 +47,9 @@ function adjust_vol_slider(element, x_coord, y_coord) {
     $('circle.volume_slider').attr('cx', new_circle_coord_x);
     $('path.volume_slider').attr('transform', 'translate(' + new_path_coord_x + ',0)');
 
+    //console.log('new_circle_coord_x:'+new_circle_coord_x);
+    //console.log('new_path_coord_x:'+new_path_coord_x);
+
     // выставляем соответствующий уровень громкости (от позиции ползунка)
     set_volume((new_circle_coord_x - cx_from) / (cx_to - cx_from));
 
@@ -60,6 +63,12 @@ function move_volume_slider(e) {
         || (e.target == $('#volume_icon_background')[0] )
     ) {
         return;
+    }
+
+    // на мобилках нужные координаты определяются по другому
+    if (isNaN(e.pageX) || isNaN(e.pageY)) {
+        e.pageX = e.changedTouches[0].pageX;
+        e.pageY = e.changedTouches[0].pageY;
     }
     adjust_vol_slider($(this), e.pageX, e.pageY);
 
